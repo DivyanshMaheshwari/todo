@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const TodoApp = () => {
-  const [todos, setTodos] = useState(JSON.parse(localStorage.getItem("todos")) || []);
+  const [todos, setTodos] = useState(JSON.parse(localStorage.getItem("todos")));
   const [currentTodo, setCurrentTodo] = useState("");
   const [editingIndex, setEditingIndex] = useState(null);
 
@@ -19,7 +19,7 @@ const TodoApp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!currentTodo) {
-      return alert('Please enter any todo');
+      return alert("Please enter any todo");
     }
 
     if (editingIndex === null) {
@@ -33,10 +33,6 @@ const TodoApp = () => {
       setCurrentTodo("");
     }
   };
-  const handleTodoClick = (index) => {
-    const newTodos = [...todos];
-    setTodos(newTodos);
-  };
   const handleDeleteClick = (index) => {
     const newTodos = [...todos];
     newTodos.splice(index, 1);
@@ -49,7 +45,7 @@ const TodoApp = () => {
 
   return (
     <div className="todo-app">
-        <h2>Hello Guys,Kuch likh lo</h2>
+      <h2>Hello Guys,Kuch likh lo</h2>
 
       <form onSubmit={handleSubmit}>
         <input
@@ -66,10 +62,24 @@ const TodoApp = () => {
       <div className="todo-list">
         {todos.map((todo, index) => (
           <div key={index} className="todo-item">
-            <span onClick={() => handleTodoClick(index)} className="todo-text">{todo.text}</span>
+            <span onClick className="todo-text">
+              {todo.text}
+            </span>
             <div className="todo-actions">
-              <button onClick={() => handleEditClick(index)} disabled={editingIndex === index} className="todo-edit">Edit</button>
-              <button onClick={() => handleDeleteClick(index)} disabled={editingIndex === index} className="todo-delete">Delete</button>
+              <button
+                onClick={() => handleEditClick(index)}
+                disabled={editingIndex === index}
+                className="todo-edit"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDeleteClick(index)}
+                disabled={editingIndex === index}
+                className="todo-delete"
+              >
+                Delete
+              </button>
             </div>
           </div>
         ))}
@@ -78,6 +88,4 @@ const TodoApp = () => {
   );
 };
 
-
 export default TodoApp;
-
